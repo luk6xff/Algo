@@ -1,0 +1,15 @@
+*INSTALATION:
+1. Install Anaconda
+https://www.anaconda.com/download/
+
+2. Install Jupyter Notebook
+$ conda install jupyter
+
+OR just using a pip:
+$ python3 -m pip install --upgrade pip
+$ python3 -m pip install jupyter
+
+
+*RUNNING:
+3. Start Jupyter
+$ jupyter notebook
