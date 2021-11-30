@@ -1,1 +1,2 @@
-# Advent of code 2021 solutions in RUST by luk6xff
+# Advent of Code 2021 in Rust
+[Advent of Code 2021][aoc-2020] solutions by luk6xff in the Rust programming language.
