@@ -6,29 +6,31 @@ fn parse_input(input: &str) -> Vec<i32> {
          .collect()
 }
 
-fn combination_summing_to_n(input: &[i32], k_combinations: usize, n: i32) -> Option<Vec<i32>> {
-    input.iter()
-         .copied()
-         .combinations(k_combinations)
-         .find(|v| v.iter().sum::<i32>() == n)
-}
-
-fn common_solution(k_combinations: usize) {
-    let input = parse_input(include_str!("../input.txt"));
-    match combination_summing_to_n(&input, k_combinations, 2020) {
-        Some(s) => println!("Solution: {}", s.iter().product::<i32>()),
-        None => println!("No solution found"),
+fn part_1(input: &[i32]) {
+    let mut sum: i32 = 0;
+    let mut last_x = input[0];
+    for x in input {
+        if *x > last_x {
+            sum += 1;
+        }
+        last_x = *x;
     }
+
+    println!("part_1={}", sum);
 }
 
-fn part_1() {
-    common_solution(2)
-}
-fn part_2() {
-    common_solution(3)
+fn part_2(input: Vec<i32>) {
+    println!("part_2={}",
+    input
+    .into_iter()
+    .tuple_windows::<(_, _, _)>()
+    .tuple_windows()
+    .filter(|((a1, a2, a3), (b1, b2, b3))| (b1 + b2 + b3) > (a1 + a2 + a3))
+    .count());
 }
 
 fn main() {
-    part_1();
-    part_2();
+    let input = parse_input(include_str!("../input.txt"));
+    part_1(&input);
+    part_2(input);
 }
