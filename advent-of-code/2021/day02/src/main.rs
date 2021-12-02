@@ -1,9 +1,10 @@
 // Usage: cd 2021/day02 && cargo run
 
-use itertools::Itertools;
+use std::io::{self, Error, ErrorKind, Read, Write};
+use std::str::FromStr;
 
 
-// Command 
+// Command
 enum CommandType {
     Forward(u8),
     Down(u8),
@@ -28,25 +29,58 @@ impl Submarine {
 
     }
 
-    fn process(&self, cmds: &[CommandType]) {
-        
+    fn process(&mut self, cmds: &[CommandType]) {
+        for cmd in cmds {
+            match cmd {
+                CommandType::Forward(v) => {
+                    self.h_pos += *v as u32;
+                }
+                CommandType::Down(v) => {
+                    self.depth += *v as u32;
+                }
+                CommandType::Up(v) => {
+                    self.depth -= *v as u32;
+                }
+            }
+        }
     }
-
-
 }
 
-fn parse_input(input: &str) -> Vec<i32> {
-    input.lines()
-         .filter_map(|n| n.parse::<i32>().ok())
-         .collect()
+use std::num::ParseIntError;
+
+impl FromStr for CommandType {
+
+    fn from_str(line: &str) -> Result<Self, ParseIntError> {
+        let mut words = line.split_ascii_whitespace();
+        let first = words
+                    .next()
+                    .ok_or_else(|| Err("Invalid input"));
+        let second = words
+                    .next()
+                    .ok_or_else(|| Err("Invalid input"))?
+                    .parse::<u8>()?;
+        match first {
+            "forward" => Ok(CommandType::Forward(second)),
+            "down" => Ok(CommandType::Down(second)),
+            "up" => Ok(CommandType::Up(second)),
+            _ => Err("Invalid input"),
+        }
+    }
 }
 
-fn part_1(input: &[i32]) {
-
-    println!("part_1={}", sum);
+fn parse_input(input: &str) -> Vec<CommandType> {
+    input
+        .lines()
+        .map(|line| CommandType::from_str(line))
+        .collect::<std::result::Result<Vec<_>, _>>()?;
 }
 
-fn part_2(input: Vec<i32>) {
+fn part_1(input: &[CommandType]) {
+
+    //println!("part_1={}", sum);
+}
+
+fn part_2(input: &[CommandType]) {
 
 }
 
