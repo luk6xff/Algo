@@ -28,7 +28,9 @@ impl Submarine {
 
     }
 
-    fn process(&self, cmds: &[CommandType])
+    fn process(&self, cmds: &[CommandType]) {
+        
+    }
 
 
 }
