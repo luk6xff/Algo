@@ -12,3 +12,8 @@ target/
 
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
+
+# Others
+Advent-Of-Code-2021
+AdventOfCode2021
+adventofcode-2021
