@@ -2,7 +2,7 @@ use core::f32;
 use std::time::{SystemTime};
 
 pub struct Timer {
-    timer: SystemTime;
+    timer: SystemTime,
 }
 
 
@@ -14,7 +14,7 @@ impl Timer {
     }
 
     fn print(&self) {
-        let elapsed = (self.timer.elapsed().unwrap().as_millis() as f32);
+        let elapsed = self.timer.elapsed().unwrap().as_millis() as f32;
         println!("Elpased: {} [ms]", elapsed)
     }
 }
