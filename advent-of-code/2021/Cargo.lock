@@ -3,7 +3,7 @@
 version = 3
 
 [[package]]
-name = "Advent-Of-Code-2021-by-luk6xff"
+name = "aoc2021_by_luk6xff"
 version = "0.1.0"
 dependencies = [
  "itertools",

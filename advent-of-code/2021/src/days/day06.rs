@@ -1,35 +1,26 @@
-use super::solution::{self, Solution};
+use super::day::{Day};
 
 pub struct Day06 {}
 
-impl Day06 {
-    fn parse_input() -> Vec<Lanternfish> {
-        solution::load_input("06").lines()
-                                .next()
-                                .unwrap()
-                                .split(',')
-                                .map(|x| Lanternfish::new(x.parse().unwrap()))
-                                .collect()
-    }
-
-    fn parse_input2() -> String {
-        solution::load_input("06")
-    }
-}
-
-impl Solution for Day06 {
+impl Day for Day06 {
     fn day_number(&self) -> &str {
         "06"
     }
 
     fn part_1(&self) -> String {
-        let mut input = Day06::parse_input();
+        let mut input = self.load_input()
+                            .lines()
+                            .next()
+                            .unwrap()
+                            .split(',')
+                            .map(|x| Lanternfish::new(x.parse().unwrap()))
+                            .collect();
         let res = Lanternfish::simulation(&mut input, 80);
         res.to_string()
     }
 
     fn part_2(&self) -> String {
-        let input = Day06::parse_input2();
+        let input = self.load_input();
         let res = Lanternfish::simulation2(&input, 256);
         res.to_string()
     }
