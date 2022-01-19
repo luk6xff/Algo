@@ -26,12 +26,19 @@ fn main() {
 
 fn run() {
     let mut solutions = DaySolutions{days:Vec::new()};
-    // Add all the days
+    // Add all the days (suppress them with #[cfg(test)))
+    #[cfg(test)]
     solutions.add(Box::new(days::day01::Day01{}));
+    #[cfg(test)]
     solutions.add(Box::new(days::day02::Day02{}));
+    #[cfg(test)]
     solutions.add(Box::new(days::day03::Day03{}));
+    #[cfg(test)]
     solutions.add(Box::new(days::day06::Day06{}));
+    #[cfg(test)]
     solutions.add(Box::new(days::day07::Day07{}));
+
+    solutions.add(Box::new(days::day08::Day08{}));
     // Run all the soulutions
     solutions.run();
 }
