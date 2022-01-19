@@ -13,8 +13,8 @@ impl DaySolutions {
     fn run(&self) {
         for day in self.days.iter() {
             let _timer = utils::timer::Timer::new();
-            println!("\nDay:{} -> part_1={}", day.day_number(), day.part_1());
-            println!("Day:{} -> part_2={}", day.day_number(), day.part_2());
+            println!("\nDay:{} -> part_1 = {}", day.day_number(), day.part_1());
+            println!("Day:{} -> part_2 = {}", day.day_number(), day.part_2());
         }
     }
 }
@@ -31,6 +31,7 @@ fn run() {
     solutions.add(Box::new(days::day02::Day02{}));
     solutions.add(Box::new(days::day03::Day03{}));
     solutions.add(Box::new(days::day06::Day06{}));
+    solutions.add(Box::new(days::day07::Day07{}));
     // Run all the soulutions
     solutions.run();
 }

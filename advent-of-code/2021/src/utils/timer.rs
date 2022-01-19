@@ -15,7 +15,7 @@ impl Timer {
 
     fn print(&self) {
         let elapsed = self.timer.elapsed().unwrap().as_millis() as f32;
-        println!("Elpased: {} [ms]", elapsed)
+        println!("Elapsed: {} [ms]", elapsed)
     }
 }
 
