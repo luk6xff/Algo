@@ -179,45 +179,102 @@ LIMIT 1;
 ```
 
 ### Weather Observation Station 15
-
+Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than 137.2345. Round your answer to 4 decimal places.
 ```sql
 -- mysql
-
+SELECT ROUND(LONG_W, 4)
+FROM station
+WHERE LAT_N < 137.2345
+ORDER BY LAT_N DESC
+LIMIT 1;
 ```
 
 ### Weather Observation Station 16
-
+Query the smallest Northern Latitude (LAT_N) from STATION that is greater than 38.7880. Round your answer to 4 decimal places.
 ```sql
 -- mysql
-
+SELECT ROUND(LAT_N, 4)
+FROM station
+WHERE LAT_N > 38.7880
+ORDER BY LAT_N ASC
+LIMIT 1;
 ```
 
 ### Weather Observation Station 17
-
+Query the Western Longitude (LONG_W) where the smallest Northern Latitude (LAT_N) in STATION that is greater than 38.7880. Round your answer to 4 decimal places.
 ```sql
 -- mysql
-
+SELECT ROUND(LONG_W, 4)
+FROM station
+WHERE LAT_N > 38.7880
+ORDER BY LAT_N ASC
+LIMIT 1;
 ```
 
 ### Weather Observation Station 18
+Consider P1(a, b) and P2(c,d) to be two points on a 2D plane.
+- a - happens to equal the minimum value in Northern Latitude (LAT_N in STATION).
+- b - happens to equal the minimum value in Western Longitude (LONG_W in STATION).
+- c - happens to equal the maximum value in Northern Latitude (LAT_N in STATION).
+- d - happens to equal the maximum value in Western Longitude (LONG_W in STATION).
 
+Query the Manhattan Distance between points P1 and P2 and round it to a scale of 4 decimal places.
 ```sql
 -- mysql
-
+SELECT
+    ROUND(
+        ABS(MIN(LAT_N) - MAX(LAT_N)) + ABS(MIN(LONG_W) - MAX(LONG_W)),
+        4
+    ) AS manhattan_distance
+FROM
+    station;
 ```
 
 ### Weather Observation Station 19
-
+Consider P1(a, c) and P2(b, d) to be two points on a 2D plane where (a,b) are the respective minimum and maximum values of Northern Latitude (LAT_N) and (c, d) are the respective minimum and maximum values of Western Longitude (LONG_W) in STATION.
+Query the Euclidean Distance between points P1 and P2 and round it to a scale of 4 decimal places.
 ```sql
 -- mysql
-
+SELECT
+    ROUND(
+        SQRT(POW(MIN(LAT_N) - MAX(LAT_N), 2) + POW(MIN(LONG_W) - MAX(LONG_W), 2)),
+        4
+    ) AS euclidean_distance
+FROM
+    station;
 ```
 
 ### Weather Observation Station 20
-
+A median is defined as a number separating the higher half of a data set from the lower half. Query the median of the Northern Latitudes (LAT_N) from STATION and round your answer to 4 decimal places.
 ```sql
 -- mysql
-
+WITH OrderedLatitudes AS (
+    SELECT LAT_N
+    FROM station
+    ORDER BY LAT_N
+),
+RowNumbered AS (
+    SELECT LAT_N, ROW_NUMBER() OVER () AS row_num
+    FROM OrderedLatitudes
+),
+Counted AS (
+    SELECT COUNT(*) AS total_count
+    FROM station
+)
+SELECT ROUND(
+    CASE
+        -- Odd number of records: pick the middle value
+        WHEN total_count % 2 = 1 THEN
+            (SELECT LAT_N FROM RowNumbered WHERE row_num = (total_count + 1) / 2)
+        -- Even number of records: average the two middle values
+        ELSE
+            (SELECT AVG(LAT_N)
+             FROM RowNumbered
+             WHERE row_num IN (total_count / 2, total_count / 2 + 1))
+    END,
+    4
+) AS median_lat_n
+FROM Counted;
 ```
 
 
