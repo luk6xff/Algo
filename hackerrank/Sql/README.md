@@ -158,8 +158,75 @@ FROM station
 WHERE NOT (city REGEXP '^[aeiouAEIOU]' OR city REGEXP '[aeiouAEIOU]$');
 ```
 
-###
+### Weather Observation Station 13
+Query the sum of Northern Latitudes (LAT_N) from STATION having values greater than 38.7880 and less than 137.2345. Truncate your answer to  4 decimal places.
+```sql
+-- mysql
+SELECT ROUND(SUM(LAT_N), 4)
+FROM station
+WHERE LAT_N > 38.7880 AND LAT_N < 137.2345;
+```
 
+### Weather Observation Station 14
+Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than 137.2345. Truncate your answer to 4 decimal places.
+```sql
+-- mysql
+SELECT ROUND(LAT_N, 4)
+FROM station
+WHERE LAT_N < 137.2345
+ORDER BY LAT_N DESC
+LIMIT 1;
+```
+
+### Weather Observation Station 15
+
+```sql
+-- mysql
+
+```
+
+### Weather Observation Station 16
+
+```sql
+-- mysql
+
+```
+
+### Weather Observation Station 17
+
+```sql
+-- mysql
+
+```
+
+### Weather Observation Station 18
+
+```sql
+-- mysql
+
+```
+
+### Weather Observation Station 19
+
+```sql
+-- mysql
+
+```
+
+### Weather Observation Station 20
+
+```sql
+-- mysql
+
+```
+
+
+## STUDENTS table used for all below
+![alt text](students.png)
+
+
+### Higher Than 75 Marks
+Query the Name of any student in STUDENTS who scored higher than  Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
 ```sql
 -- mysql
 
