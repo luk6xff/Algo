@@ -97,53 +97,65 @@ FROM (
 ) AS longest;
 ```
 
-###
-
+### Weather Observation Station 6
+Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.
 ```sql
 -- mysql
-
+SELECT DISTINCT city FROM station WHERE (city LIKE 'a%' OR city LIKE 'e%' OR city LIKE 'i%' OR city LIKE 'o%' OR city LIKE 'u%');
 ```
 
-###
-
+### Weather Observation Station 7
+Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.
 ```sql
 -- mysql
-
+SELECT DISTINCT city
+FROM station
+WHERE city REGEXP '[aeiouAEIOU]$';
 ```
 
-###
-
+### Weather Observation Station 8
+Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.
 ```sql
 -- mysql
-
+SELECT DISTINCT city
+FROM station
+WHERE city REGEXP '^[aeiouAEIOU].*[aeiouAEIOU]$';
 ```
 
-###
-
+### Weather Observation Station 9
+Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.
 ```sql
 -- mysql
-
+SELECT DISTINCT city
+FROM station
+WHERE NOT city REGEXP '^[aeiouAEIOU]';
 ```
 
-###
-
+### Weather Observation Station 10
+Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
 ```sql
 -- mysql
-
+SELECT DISTINCT city
+FROM station
+WHERE NOT city REGEXP '[aeiouAEIOU]$';
 ```
 
-###
-
+### Weather Observation Station 11
+Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.
 ```sql
 -- mysql
-
+SELECT DISTINCT city
+FROM station
+WHERE NOT city REGEXP '^[aeiouAEIOU].*[aeiouAEIOU]$';
 ```
 
-###
-
+### Weather Observation Station 12
+Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.
 ```sql
 -- mysql
-
+SELECT DISTINCT city
+FROM station
+WHERE NOT (city REGEXP '^[aeiouAEIOU]' OR city REGEXP '[aeiouAEIOU]$');
 ```
 
 ###
