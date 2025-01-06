@@ -40,6 +40,31 @@ Query the names of all the Japanese cities in the CITY table. The COUNTRYCODE fo
 SELECT name FROM city WHERE countrycode = 'JPN';
 ```
 
+### Average Population
+Query the average population for all cities in CITY, rounded down to the nearest integer.
+```sql
+-- mysql
+SELECT FLOOR(AVG(population)) AS average_population
+FROM CITY;
+```
+
+### Japan Population
+Query the sum of the populations for all Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+```sql
+-- mysql
+SELECT SUM(population)
+FROM CITY
+WHERE countrycode = 'JPN';
+```
+
+### Population Density Difference
+Query the difference between the maximum and minimum populations in CITY.
+```sql
+-- mysql
+SELECT (MAX(population) - MIN(population))
+FROM CITY;
+```
+
 
 ## STATION table used for all below
 ![alt text](station.png)
@@ -57,7 +82,7 @@ The sum of all values in LAT_N rounded to a scale of  decimal places.
 The sum of all values in LONG_W rounded to a scale of  decimal places.
 ```sql
 /* mysql */
-SELECT round(sum(LAT_N), 2), round(sum(LONG_W), 2) FROM station;
+SELECT ROUND(SUM(LAT_N), 2), ROUND(SUM(LONG_W), 2) FROM station;
 ```
 
 ### Weather Observation Station 3
@@ -283,25 +308,65 @@ FROM Counted;
 
 
 ### Higher Than 75 Marks
-Query the Name of any student in STUDENTS who scored higher than  Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+Query the Name of any student in STUDENTS who scored higher than 75 Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
 ```sql
 -- mysql
-
+SELECT Name
+FROM STUDENTS
+WHERE Marks > 75
+ORDER BY RIGHT(Name, 3), ID ASC;
 ```
 
-###
 
+## EMPLOYEE table used for all below
+![alt text](employee.png)
+
+### Employee Names
+Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
 ```sql
 -- mysql
-
+SELECT name
+FROM EMPLOYEE
+ORDER BY name;
 ```
 
-###
-
+### Employee Salaries
+Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than $2000 per month who have been employees for less than 10 months. Sort your result by ascending employee_id.
 ```sql
 -- mysql
-
+SELECT name
+FROM EMPLOYEE
+WHERE salary > 2000 AND months < 10
+ORDER BY employee_id ASC;
 ```
+
+### Top Earners
+We define an employee's total earnings to be their monthly `salary x months` worked, and the maximum total earnings to be the maximum total earnings for any employee in the Employee table. Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings. Then print these values as `2` space-separated integers.
+```sql
+-- mysql
+SELECT
+    MAX(salary * months) AS max_total_earnings,
+    COUNT(*) AS num_employees
+FROM EMPLOYEE
+WHERE salary * months = (
+    SELECT MAX(salary * months) FROM EMPLOYEE
+);
+```
+
+
+
+## EMPLOYEES table used for all below
+![alt text](employees.png)
+
+### The Blunder
+Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, but did not realize her keyboard's 0 key was broken until after completing the calculation. She wants your help finding the difference between her miscalculation (using salaries with any zeros removed), and the actual average salary.
+Write a query calculating the amount of error (i.e.: `actual - miscalculated` average monthly salaries), and round it up to the next integer.
+```sql
+-- mysql
+SELECT CEIL(AVG(Salary) - AVG(CAST(REPLACE(Salary, '0', '') AS UNSIGNED))) AS error
+FROM EMPLOYEES;
+```
+
 
 ###
 
